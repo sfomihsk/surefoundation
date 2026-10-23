@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sure Foundation Outreach Ministries Int. | NGO & Child Care Center Uganda</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        amberGold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .editable-active { outline: 2px dashed #f59e0b; outline-offset: 4px; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #15803d; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brand-900 text-white text-xs py-2 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+            <div class="flex items-center space-x-4">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-earth-americas text-amberGold-400"></i> Global Outreach (USA, UK, Europe & Worldwide)</span>
+                <span class="hidden sm:inline">|</span>
+                <span class="hidden sm:flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-amberGold-400"></i> Kampala & Jinja, Uganda</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <!-- Currency Selector -->
+                <div class="flex items-center space-x-1 bg-brand-800 px-2 py-0.5 rounded text-xs border border-brand-700">
+                    <label for="currencySelect" class="text-slate-300 mr-1"><i class="fa-solid fa-coins"></i></label>
+                    <select id="currencySelect" onchange="updateCurrency(this.value)" class="bg-transparent text-white focus:outline-none cursor-pointer">
+                        <option value="USD" class="bg-slate-900">USD ($)</option>
+                        <option value="UGX" class="bg-slate-900">UGX (USh)</option>
+                        <option value="GBP" class="bg-slate-900">GBP (£)</option>
+                        <option value="EUR" class="bg-slate-900">EUR (€)</option>
+                    </select>
+                </div>
+                <!-- CMS Admin Toggle -->
+                <button onclick="toggleAdminMode()" id="adminToggleBtn" class="bg-amberGold-500 hover:bg-amberGold-600 text-slate-950 font-bold px-3 py-1 rounded transition text-xs flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-lock-open"></i> <span id="adminToggleText">Admin Edit Mode</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CMS EDITING BANNER NOTIFICATION -->
+    <div id="adminNoticeBar" class="hidden bg-amberGold-500 text-slate-950 px-4 py-2 text-center text-xs font-bold border-b border-amberGold-600 shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-base"></i>
+            <span>ADMIN MODE IS ACTIVE: You can click directly on text to edit it, or use the (+) buttons to post news, videos, or add staff members. All changes auto-save!</span>
+            <button onclick="saveAdminEditsManually()" class="ml-4 bg-slate-900 text-white px-2 py-0.5 rounded hover:bg-slate-800 text-xs">Save Edits Now</button>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER / NAVBAR -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-brand-800 flex items-center justify-center text-amberGold-400 font-extrabold text-xl shadow-md border-2 border-amberGold-500">
+                        <i class="fa-solid fa-hands-holding-child"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight uppercase font-heading tracking-tight" id="siteTitleText" contenteditable="false">SURE FOUNDATION OUTREACH MINISTRIES INT.</h1>
+                        <p class="text-xs text-brand-700 font-semibold tracking-wide">CBO/NGO Charity & Orphanage Center - Uganda</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex items-center space-x-7 text-sm font-medium text-slate-700">
+                    <a href="#about" class="hover:text-brand-700 transition">About Us</a>
+                    <a href="#pillars" class="hover:text-brand-700 transition">Our Work</a>
+                    <a href="#feed" class="hover:text-brand-700 transition">News & Media</a>
+                    <a href="#team" class="hover:text-brand-700 transition">Our Team</a>
+                    <a href="#visitors" class="hover:text-brand-700 transition">Visit Uganda</a>
+                    <a href="#contact" class="hover:text-brand-700 transition">Contact</a>
+                </nav>
+
+                <!-- Donate CTA -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <button onclick="openDonateModal()" class="bg-brand-700 hover:bg-brand-800 text-white font-bold px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-solid fa-heart text-amberGold-400 animate-pulse"></i> Donate Now
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium">About Us</a>
+            <a href="#pillars" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium">Our Work</a>
+            <a href="#feed" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium">News & Media</a>
+            <a href="#team" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium">Our Team</a>
+            <a href="#visitors" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium">Visit Uganda</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium">Contact</a>
+            <button onclick="toggleMobileMenu(); openDonateModal();" class="w-full mt-2 bg-brand-700 text-white font-bold py-3 rounded-xl shadow flex items-center justify-center gap-2">
+                <i class="fa-solid fa-heart text-amberGold-400"></i> Donate Now
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-900 text-white overflow-hidden py-20 lg:py-32">
+        <!-- Background Image overlay -->
+        <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-2xl">
+                <span class="inline-flex items-center gap-2 bg-amberGold-500/20 text-amberGold-400 border border-amberGold-500/30 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-6">
+                    <i class="fa-solid fa-star"></i> Registered Community-Based Organization
+                </span>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-heading leading-tight mb-6" id="heroHeadlineText" contenteditable="false">
+                    Transforming Lives of Needy & Orphaned Children in Uganda
+                </h1>
+                <p class="text-base sm:text-lg text-slate-300 mb-8 leading-relaxed" id="heroSubText" contenteditable="false">
+                    Sure Foundation Outreach Ministries Int. provides quality education, emergency medical care, nutritious food, and secure home shelter to vulnerable orphans across Uganda. Together, we can restore hope and shape a brighter future.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="openDonateModal()" class="bg-amberGold-500 hover:bg-amberGold-600 text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3 text-base">
+                        <i class="fa-solid fa-hand-holding-heart text-xl"></i> Make a Donation Today
+                    </button>
+                    <a href="#visitors" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-semibold px-8 py-4 rounded-xl transition flex items-center justify-center gap-2 text-base">
+                        <i class="fa-solid fa-plane-arrival"></i> Visit Us in Uganda
+                    </a>
+                </div>
+
+                <!-- Impact Quick Numbers -->
+                <div class="grid grid-cols-3 gap-4 mt-12 pt-8 border-t border-white/10">
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amberGold-400" id="stat1Text" contenteditable="false">250+</div>
+                        <div class="text-xs text-slate-300">Children Sheltered & Fed</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amberGold-400" id="stat2Text" contenteditable="false">180+</div>
+                        <div class="text-xs text-slate-300">Enrolled in School</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amberGold-400" id="stat3Text" contenteditable="false">100%</div>
+                        <div class="text-xs text-slate-300">Community Driven</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE PILLARS OF CARE -->
+    <section id="pillars" class="py-16 lg:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-700 font-bold uppercase tracking-wider text-xs">Our Four Pillars of Care</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading mt-2" id="pillarsTitle" contenteditable="false">How We Support Needy Children & Families</h2>
+                <p class="text-slate-600 mt-4" id="pillarsSubtitle" contenteditable="false">We provide comprehensive holistic support to make sure no orphan or vulnerable child in Uganda is left behind.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pillar 1 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-xl transition group border-t-4 border-t-brand-700">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-700 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" id="pillar1Head" contenteditable="false">Education & Literacy</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" id="pillar1Body" contenteditable="false">
+                        We pay school fees, buy uniforms, scholastic materials, and books for children who cannot afford school, unlocking opportunities for a brighter career.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-xl transition group border-t-4 border-t-amberGold-500">
+                    <div class="w-14 h-14 bg-amber-100 text-amberGold-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-kit-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" id="pillar2Head" contenteditable="false">Healthcare & Medication</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" id="pillar2Body" contenteditable="false">
+                        Providing essential medical checkups, malaria treatment, vaccinations, hygiene kits, and emergency clinic visits for vulnerable youngsters.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-xl transition group border-t-4 border-t-brand-700">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-700 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-bowl-food"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" id="pillar3Head" contenteditable="false">Nutrition & Feeding</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" id="pillar3Body" contenteditable="false">
+                        Daily balanced meals (rice, beans, maize porridge, clean drinking water, fruits) to eradicate malnutrition among growing children in our center.
+                    </p>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-xl transition group border-t-4 border-t-amberGold-500">
+                    <div class="w-14 h-14 bg-amber-100 text-amberGold-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-house-chimney-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" id="pillar4Head" contenteditable="false">Safe Shelter & Home</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" id="pillar4Body" contenteditable="false">
+                        A loving orphanage home environment with clean bedding, warm clothing, protection, and spiritual mentorship under dedicated house mothers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US & MISSION SECTION -->
+    <section id="about" class="py-16 lg:py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1000&auto=format&fit=crop" alt="Children in Uganda" class="rounded-3xl shadow-2xl object-cover w-full h-[450px]">
+                    <div class="absolute -bottom-6 -right-6 bg-brand-800 text-white p-6 rounded-2xl shadow-xl max-w-xs hidden sm:block">
+                        <i class="fa-solid fa-quote-left text-amberGold-400 text-3xl mb-2"></i>
+                        <p class="text-xs text-slate-200" id="quoteText" contenteditable="false">"Pure religion and undefiled before God is this, to visit the fatherless and widows in their affliction."</p>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-brand-700 font-bold uppercase tracking-wider text-xs">About Our Ministry</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading mt-2 mb-6" id="aboutHeading" contenteditable="false">SURE FOUNDATION OUTREACH MINISTRIES INT.</h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed" id="aboutText1" contenteditable="false">
+                        Founded in Uganda, Sure Foundation Outreach Ministries International is a community-based organization (CBO) and Non-Governmental Organization (NGO) created with a heart of compassion to serve orphans, vulnerable children, widows, and needy families.
+                    </p>
+                    <p class="text-slate-600 mb-6 leading-relaxed" id="aboutText2" contenteditable="false">
+                        Many children in our community lose parents due to poverty, disease, and hardships. We stand in the gap by providing a place they can call home, quality schooling, healthcare, and gospel mentorship.
+                    </p>
+
+                    <!-- Mission & Vision Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-brand-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-bullseye text-amberGold-500"></i> Our Mission</h4>
+                            <p class="text-xs text-slate-600 leading-normal" id="missionText" contenteditable="false">To glorify God by reaching out to needy orphans and destitute children with love, education, shelter, and medical care.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-brand-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-eye text-amberGold-500"></i> Our Vision</h4>
+                            <p class="text-xs text-slate-600 leading-normal" id="visionText" contenteditable="false">A thriving Ugandan community where every child grows up nurtured, educated, healthy, and empowered for self-reliance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWS & MEDIA FEED SECTION (WITH CMS POST GENERATOR) -->
+    <section id="feed" class="py-16 lg:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                <div>
+                    <span class="text-brand-700 font-bold uppercase tracking-wider text-xs">Ministry Updates & Feed</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading mt-2">Latest News, Photos & Videos</h2>
+                    <p class="text-slate-600 mt-2">Stay updated with our daily outreach activities, child testimonies, and videos.</p>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <!-- CMS Add Post Button (Visible in Edit Mode or Admin) -->
+                    <button onclick="openAddPostModal()" id="addPostBtn" class="bg-brand-700 hover:bg-brand-800 text-white font-bold px-4 py-2 rounded-xl text-sm flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-plus-circle"></i> Add New Post / Video
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feed Filter Tabs -->
+            <div class="flex flex-wrap gap-2 mb-8 border-b border-slate-200 pb-4" id="feedFilterContainer">
+                <button onclick="filterPosts('all')" class="feed-tab active bg-brand-800 text-white px-4 py-2 rounded-lg text-xs font-bold transition">All Posts</button>
+                <button onclick="filterPosts('news')" class="feed-tab bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition">News & Stories</button>
+                <button onclick="filterPosts('photo')" class="feed-tab bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition">Photo Gallery</button>
+                <button onclick="filterPosts('video')" class="feed-tab bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition">Videos</button>
+            </div>
+
+            <!-- Dynamic Posts Grid Container -->
+            <div id="postsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Javascript will render dynamic posts here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKERS & TEAM DIRECTORY (CMS EDITABLE) -->
+    <section id="team" class="py-16 lg:py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                <div>
+                    <span class="text-brand-700 font-bold uppercase tracking-wider text-xs">Our Leadership & Staff</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading mt-2">Ministry Workers & Designation</h2>
+                    <p class="text-slate-600 mt-2">Meet the dedicated team serving the children and community daily.</p>
+                </div>
+                <button onclick="openAddTeamModal()" id="addTeamBtn" class="bg-amberGold-500 hover:bg-amberGold-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm flex items-center gap-2 shadow">
+                    <i class="fa-solid fa-user-plus"></i> Add Team Member
+                </button>
+            </div>
+
+            <!-- Team Members Grid -->
+            <div id="teamGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Javascript will render staff cards here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERNATIONAL VISITORS & VOLUNTEERS (USA, UK, EUROPE PROMOTION) -->
+    <section id="visitors" class="py-16 lg:py-24 bg-brand-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-flex items-center gap-2 bg-amberGold-500/20 text-amberGold-400 border border-amberGold-500/30 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+                        <i class="fa-solid fa-plane"></i> Global Mission Trips & Visits
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-heading mb-6" id="visitHeading" contenteditable="false">
+                        We Welcome Visitors & Volunteers from USA, UK, Europe & Worldwide!
+                    </h2>
+                    <p class="text-slate-200 mb-6 leading-relaxed" id="visitText" contenteditable="false">
+                        Are you planning a mission trip, gap year, or volunteer travel to East Africa? Sure Foundation Outreach Ministries Int. warmly invites teams, families, and individual volunteers to visit our center in Uganda. Experience authentic Ugandan hospitality and make a direct impact!
+                    </p>
+
+                    <ul class="space-y-3 mb-8 text-sm text-slate-200">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-amberGold-400 mt-1"></i> Safe guesthouse accommodation & local transport arrangements</li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-amberGold-400 mt-1"></i> Hands-on volunteering in school teaching, medical camps & sports</li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-amberGold-400 mt-1"></i> Optional Uganda wildlife safari tours (Jinja Nile River, Game Parks)</li>
+                    </ul>
+
+                    <button onclick="openVisitorModal()" class="bg-amberGold-500 hover:bg-amberGold-600 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-check"></i> Plan Your Visit / Register Interest
+                    </button>
+                </div>
+
+                <div class="bg-brand-800/80 p-8 rounded-3xl border border-brand-700 backdrop-blur-md shadow-2xl">
+                    <h3 class="text-xl font-bold mb-4 text-amberGold-400 flex items-center gap-2">
+                        <i class="fa-solid fa-passport"></i> Visitor Travel Quick Guide
+                    </h3>
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-200">
+                        <div class="p-3 bg-brand-900/60 rounded-xl border border-brand-700">
+                            <strong>Location:</strong> Kampala & Jinja, Uganda (East Africa)
+                        </div>
+                        <div class="p-3 bg-brand-900/60 rounded-xl border border-brand-700">
+                            <strong>Airport:</strong> Entebbe International Airport (EBB)
+                        </div>
+                        <div class="p-3 bg-brand-900/60 rounded-xl border border-brand-700">
+                            <strong>Visa Requirements:</strong> E-Visa available online prior to travel for US, UK, EU citizens.
+                        </div>
+                        <div class="p-3 bg-brand-900/60 rounded-xl border border-brand-700">
+                            <strong>Health Guidelines:</strong> Yellow Fever Vaccination card is required upon arrival.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & LOCATION SECTION -->
+    <section id="contact" class="py-16 lg:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <span class="text-brand-700 font-bold uppercase tracking-wider text-xs">Get In Touch</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 font-heading mt-2 mb-6">Contact & Find Us in Uganda</h2>
+                    <p class="text-slate-600 mb-8">Have questions, want to partner, or send donations? Contact our main administrative office directly.</p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-100 text-brand-700 rounded-2xl flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Physical Address</h4>
+                                <p class="text-sm text-slate-600" id="contactAddress" contenteditable="false">Kampala - Jinja Highway, Uganda East Africa</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-100 text-brand-700 rounded-2xl flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Phone Numbers (WhatsApp Available)</h4>
+                                <p class="text-sm text-slate-600" id="contactPhone" contenteditable="false">+256 770 000000 / +256 700 000000</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-100 text-brand-700 rounded-2xl flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Official Email Address</h4>
+                                <p class="text-sm text-slate-600" id="contactEmail" contenteditable="false">info@surefoundationoutreach.org</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6">Send Us a Direct Message</h3>
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Full Name</label>
+                            <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Email Address</label>
+                            <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Subject</label>
+                            <input type="text" required placeholder="Sponsorship / Visit / Donation Enquiry" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Message</label>
+                            <textarea rows="4" required placeholder="Write your message here..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3.5 rounded-xl transition shadow flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center text-amberGold-400 font-extrabold text-lg border border-amberGold-500">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+                        <span class="text-white font-bold text-base uppercase">Sure Foundation Outreach Ministries Int.</span>
+                    </div>
+                    <p class="text-xs text-slate-400 max-w-sm mb-4 leading-relaxed">
+                        Dedicated to serving orphaned, destitute, and needy children in Uganda with holistic care, quality education, medical support, and nutrition.
+                    </p>
+                    <div class="flex space-x-4 text-base">
+                        <a href="#" class="w-9 h-9 bg-slate-900 rounded-full flex items-center justify-center hover:bg-brand-700 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 bg-slate-900 rounded-full flex items-center justify-center hover:bg-brand-700 hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-9 h-9 bg-slate-900 rounded-full flex items-center justify-center hover:bg-brand-700 hover:text-white transition"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-9 h-9 bg-slate-900 rounded-full flex items-center justify-center hover:bg-brand-700 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#about" class="hover:text-white">About Organization</a></li>
+                        <li><a href="#pillars" class="hover:text-white">Children Sponsorship</a></li>
+                        <li><a href="#feed" class="hover:text-white">News & Photo Feed</a></li>
+                        <li><a href="#team" class="hover:text-white">Staff & Workers</a></li>
+                        <li><a href="#visitors" class="hover:text-white">Volunteer in Uganda</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Donate Options</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="javascript:void(0)" onclick="openDonateModal()" class="hover:text-white">VISA / MasterCard</a></li>
+                        <li><a href="javascript:void(0)" onclick="openDonateModal()" class="hover:text-white">PayPal Instant</a></li>
+                        <li><a href="javascript:void(0)" onclick="openDonateModal()" class="hover:text-white">MTN Mobile Money Uganda</a></li>
+                        <li><a href="javascript:void(0)" onclick="openDonateModal()" class="hover:text-white">Airtel Money Uganda</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                <p>&copy; 2026 SURE FOUNDATION OUTREACH MINISTRIES INT. All Rights Reserved. Registered NGO/CBO Uganda.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI LIVE CHAT BOT ASSISTANT ("SUREBOT") -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Toggle Button -->
+        <button onclick="toggleChatWindow()" id="chatToggleBtn" class="bg-brand-700 hover:bg-brand-800 text-white rounded-full p-4 shadow-2xl flex items-center justify-center transition transform hover:scale-105 border-2 border-amberGold-400">
+            <i class="fa-solid fa-robot text-2xl"></i>
+            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amberGold-500 rounded-full border-2 border-white"></span>
+        </button>
+
+        <!-- Chat Popup Box -->
+        <div id="chatWindow" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[480px]">
+            <!-- Header -->
+            <div class="bg-brand-900 text-white p-4 flex justify-between items-center border-b border-brand-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-full bg-amberGold-500 text-slate-950 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">SureBot Assistant</h4>
+                        <span class="text-[10px] text-brand-200 flex items-center gap-1"><span class="w-2 h-2 bg-emerald-400 rounded-full"></span> Online | Instant NGO Info</span>
+                    </div>
+                </div>
+                <button onclick="toggleChatWindow()" class="text-slate-300 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 custom-scrollbar bg-slate-50 text-xs">
+                <div class="bg-white border border-slate-200 text-slate-800 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm">
+                    Hello! Welcome to <strong>Sure Foundation Outreach Ministries Int.</strong> How can I assist you today? You can choose a common topic below or type your question.
+                </div>
+            </div>
+
+            <!-- Quick Answer Chips -->
+            <div class="p-2 bg-slate-100 border-t border-slate-200 flex flex-wrap gap-1.5 text-[11px]">
+                <button onclick="sendQuickChat('How to donate?')" class="bg-white hover:bg-brand-100 text-brand-800 border border-slate-200 px-2.5 py-1 rounded-full transition">How to donate?</button>
+                <button onclick="sendQuickChat('Mobile Money codes')" class="bg-white hover:bg-brand-100 text-brand-800 border border-slate-200 px-2.5 py-1 rounded-full transition">Mobile Money</button>
+                <button onclick="sendQuickChat('Where are you located?')" class="bg-white hover:bg-brand-100 text-brand-800 border border-slate-200 px-2.5 py-1 rounded-full transition">Location</button>
+                <button onclick="sendQuickChat('How to visit Uganda?')" class="bg-white hover:bg-brand-100 text-brand-800 border border-slate-200 px-2.5 py-1 rounded-full transition">Visit Us</button>
+            </div>
+
+            <!-- Input Box -->
+            <form onsubmit="handleUserChat(event)" class="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+                <input id="chatInput" type="text" placeholder="Type your message..." class="flex-1 bg-slate-100 text-xs px-3 py-2.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-700">
+                <button type="submit" class="bg-brand-700 text-white w-9 h-9 rounded-xl flex items-center justify-center shrink-0 hover:bg-brand-800 transition">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DONATION MODAL (VISA, PAYPAL, MTN & AIRTEL MOBILE MONEY) -->
+    <div id="donateModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-100 relative my-8">
+            <!-- Modal Header -->
+            <div class="bg-brand-900 text-white p-6 relative">
+                <button onclick="closeDonateModal()" class="absolute top-5 right-5 text-slate-300 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+                <span class="text-amberGold-400 font-bold text-xs uppercase tracking-widest"><i class="fa-solid fa-heart"></i> Make a Transformation</span>
+                <h3 class="text-2xl font-extrabold font-heading mt-1">Support Our Ministry</h3>
+                <p class="text-xs text-brand-200 mt-1">Select your preferred payment method below. Your generous gift empowers children in Uganda.</p>
+            </div>
+
+            <div class="p-6">
+                <!-- Donation Amount Presets -->
+                <div class="mb-6">
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Select or Enter Amount (<span id="selectedCurrencyLabel">USD</span>)</label>
+                    <div class="grid grid-cols-4 gap-2 mb-3">
+                        <button onclick="setDonationAmount(20)" class="amt-btn bg-slate-100 hover:bg-brand-700 hover:text-white font-bold py-2 rounded-xl text-sm transition">20</button>
+                        <button onclick="setDonationAmount(50)" class="amt-btn bg-slate-100 hover:bg-brand-700 hover:text-white font-bold py-2 rounded-xl text-sm transition">50</button>
+                        <button onclick="setDonationAmount(100)" class="amt-btn bg-brand-700 text-white font-bold py-2 rounded-xl text-sm transition">100</button>
+                        <button onclick="setDonationAmount(250)" class="amt-btn bg-slate-100 hover:bg-brand-700 hover:text-white font-bold py-2 rounded-xl text-sm transition">250</button>
+                    </div>
+                    <div class="relative">
+                        <span id="currSymbol" class="absolute left-4 top-3 text-slate-400 font-bold text-sm">$</span>
+                        <input type="number" id="customAmountInput" value="100" class="w-full pl-8 pr-4 py-2.5 bg-slate-50 rounded-xl border border-slate-300 font-bold text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-700">
+                    </div>
+                </div>
+
+                <!-- Payment Method Tabs -->
+                <div class="mb-6">
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Select Payment Method</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button onclick="switchPayTab('card')" id="tab-card" class="pay-tab active border-2 border-brand-700 bg-brand-50 text-brand-900 p-2.5 rounded-xl font-bold text-xs flex flex-col items-center gap-1 transition">
+                            <i class="fa-solid fa-credit-card text-base text-brand-700"></i> VISA / Card
+                        </button>
+                        <button onclick="switchPayTab('paypal')" id="tab-paypal" class="pay-tab border-2 border-slate-200 text-slate-700 p-2.5 rounded-xl font-bold text-xs flex flex-col items-center gap-1 transition">
+                            <i class="fa-brands fa-paypal text-base text-blue-600"></i> PayPal
+                        </button>
+                        <button onclick="switchPayTab('mtn')" id="tab-mtn" class="pay-tab border-2 border-slate-200 text-slate-700 p-2.5 rounded-xl font-bold text-xs flex flex-col items-center gap-1 transition">
+                            <i class="fa-solid fa-mobile-screen text-base text-amber-500"></i> MTN MoMo
+                        </button>
+                        <button onclick="switchPayTab('airtel')" id="tab-airtel" class="pay-tab border-2 border-slate-200 text-slate-700 p-2.5 rounded-xl font-bold text-xs flex flex-col items-center gap-1 transition">
+                            <i class="fa-solid fa-mobile-retro text-base text-red-600"></i> Airtel Money
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PAYMENT TAB CONTENTS -->
+                <!-- 1. VISA / MASTERCARD CONTENT -->
+                <div id="content-card" class="pay-content space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Cardholder Name</label>
+                        <input type="text" placeholder="Name on card" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Card Number</label>
+                        <input type="text" placeholder="4532 •••• •••• 8890" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300 text-xs">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300 text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">CVV Code</label>
+                            <input type="text" placeholder="123" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300 text-xs">
+                        </div>
+                    </div>
+                    <button onclick="processDonation('VISA / Credit Card')" class="w-full mt-2 bg-brand-700 hover:bg-brand-800 text-white font-bold py-3 rounded-xl transition text-sm shadow">
+                        Process Card Donation Now
+                    </button>
+                </div>
+
+                <!-- 2. PAYPAL CONTENT -->
+                <div id="content-paypal" class="pay-content hidden text-center py-4">
+                    <p class="text-xs text-slate-600 mb-4">You will be redirected to PayPal's secure portal to complete your donation.</p>
+                    <button onclick="processDonation('PayPal Account')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-xl transition text-sm flex items-center justify-center gap-2 mx-auto shadow">
+                        <i class="fa-brands fa-paypal"></i> Proceed to PayPal Checkout
+                    </button>
+                </div>
+
+                <!-- 3. MTN MOBILE MONEY UGANDA -->
+                <div id="content-mtn" class="pay-content hidden bg-amber-50 border border-amber-200 p-4 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-amber-400 font-extrabold text-slate-950 rounded-xl flex items-center justify-center text-xs">MTN</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">MTN Mobile Money Uganda</h4>
+                            <p class="text-xs text-slate-600">Merchant Payment / Direct Transfer</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-xs text-slate-800 font-mono bg-white p-3 rounded-xl border border-amber-200">
+                        <p><strong>Merchant MoMo Code:</strong> <span class="text-brand-800 font-bold select-all">123456</span></p>
+                        <p><strong>Registered Name:</strong> SURE FOUNDATION OUTREACH MINISTRIES</p>
+                        <p><strong>Official Phone No:</strong> <span class="text-brand-800 font-bold select-all">+256 770 000000</span></p>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-3">Dial <strong>*165#</strong> on your MTN phone -> Option 3 (Pay Merchant) -> Enter Merchant Code 123456.</p>
+                    <button onclick="processDonation('MTN Mobile Money')" class="w-full mt-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition text-xs shadow">
+                        I Have Completed MTN Transfer
+                    </button>
+                </div>
+
+                <!-- 4. AIRTEL MONEY UGANDA -->
+                <div id="content-airtel" class="pay-content hidden bg-red-50 border border-red-200 p-4 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-red-600 font-extrabold text-white rounded-xl flex items-center justify-center text-xs">AIRTEL</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Airtel Money Uganda</h4>
+                            <p class="text-xs text-slate-600">Airtel Pay / Direct Transfer</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-xs text-slate-800 font-mono bg-white p-3 rounded-xl border border-red-200">
+                        <p><strong>Airtel Pay Merchant Code:</strong> <span class="text-red-700 font-bold select-all">654321</span></p>
+                        <p><strong>Registered Name:</strong> SURE FOUNDATION OUTREACH MINISTRIES</p>
+                        <p><strong>Official Phone No:</strong> <span class="text-red-700 font-bold select-all">+256 700 000000</span></p>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-3">Dial <strong>*185#</strong> on your Airtel phone -> Pay Merchant -> Enter Code 654321.</p>
+                    <button onclick="processDonation('Airtel Money')" class="w-full mt-3 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                        I Have Completed Airtel Transfer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD NEW POST / VIDEO (CMS) -->
+    <div id="addPostModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative">
+            <button onclick="closeAddPostModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-plus-circle text-brand-700"></i> Create New Post / Video</h3>
+            
+            <form onsubmit="saveNewPost(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Post Title</label>
+                    <input type="text" id="postTitle" required placeholder="e.g. Distribution of New Books to School Children" class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Category</label>
+                    <select id="postCategory" class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300">
+                        <option value="news">News & Story</option>
+                        <option value="photo">Photo Gallery</option>
+                        <option value="video">Video Embed</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Image URL or YouTube Embed Link</label>
+                    <input type="url" id="postMediaUrl" required placeholder="https://images.unsplash.com/... or https://www.youtube.com/embed/..." class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Short Description</label>
+                    <textarea id="postDesc" rows="3" required placeholder="Write a short summary about this outreach activity..." class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3 rounded-xl transition shadow">
+                    Publish Post to Website
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD TEAM MEMBER (CMS) -->
+    <div id="addTeamModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeAddTeamModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-user-plus text-amberGold-500"></i> Add Staff / Worker</h3>
+            
+            <form onsubmit="saveNewTeamMember(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Full Name</label>
+                    <input type="text" id="teamName" required placeholder="e.g. Pastor John Mulema" class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Designation / Role</label>
+                    <input type="text" id="teamRole" required placeholder="e.g. Founder & Executive Director" class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Photo URL</label>
+                    <input type="url" id="teamPhoto" required placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Contact / Email</label>
+                    <input type="text" id="teamContact" placeholder="+256 770 000000" class="w-full px-3 py-2.5 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <button type="submit" class="w-full bg-amberGold-500 hover:bg-amberGold-600 text-slate-950 font-bold py-3 rounded-xl transition shadow">
+                    Add Team Member
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: VISITOR TRAVEL INTEREST -->
+    <div id="visitorModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeVisitorModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2"><i class="fa-solid fa-plane-departure text-brand-700"></i> Plan Your Visit to Uganda</h3>
+            <p class="text-xs text-slate-500 mb-4">Fill in your travel details to receive our official visitor welcome handbook.</p>
+
+            <form onsubmit="handleVisitorSubmit(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Your Full Name</label>
+                    <input type="text" required placeholder="Sarah Jenkins" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Country of Origin</label>
+                    <input type="text" required placeholder="United States / United Kingdom / Germany" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Proposed Travel Date</label>
+                    <input type="date" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Area of Interest / Skills</label>
+                    <input type="text" placeholder="Teaching, Medical, Orphan Care, Construction, Mission" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-300">
+                </div>
+                <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3 rounded-xl transition shadow">
+                    Submit Travel Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // CMS & Local Storage Initial Data
+        let adminMode = false;
+        let activeCurrency = 'USD';
+
+        // Default Posts Feed Data
+        const defaultPosts = [
+            {
+                id: 1,
+                title: 'School Term Uniform & Books Distribution',
+                category: 'news',
+                date: 'October 12, 2026',
+                image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=800&auto=format&fit=crop',
+                description: 'We successfully distributed brand new school uniforms, backpacks, and exercise books to 120 orphaned children in our care.'
+            },
+            {
+                id: 2,
+                title: 'Weekly Medical Outreach & Health Checkup',
+                category: 'photo',
+                date: 'October 05, 2026',
+                image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop',
+                description: 'Our visiting medical team provided free malaria checkups, vitamins, and dental checkups to over 200 kids.'
+            },
+            {
+                id: 3,
+                title: 'Children Choir Worship & Praise Ministry',
+                category: 'video',
+                date: 'September 28, 2026',
+                image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800&auto=format&fit=crop',
+                description: 'Watch the heartwarming video of our children praising God during the Sunday fellowship!'
+            }
+        ];
+
+        // Default Team Data
+        const defaultTeam = [
+            {
+                id: 1,
+                name: 'Pastor Robert Ssemuwemba',
+                role: 'Founder & Executive Director',
+                photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
+                contact: 'director@surefoundation.org'
+            },
+            {
+                id: 2,
+                name: 'Grace Namubiru',
+                role: 'Head of Child Welfare & Home Manager',
+                photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop',
+                contact: 'welfare@surefoundation.org'
+            },
+            {
+                id: 3,
+                name: 'Dr. David Kato',
+                role: 'Volunteer Medical & Health Officer',
+                photo: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400&auto=format&fit=crop',
+                contact: 'medical@surefoundation.org'
+            },
+            {
+                id: 4,
+                name: 'Sarah Nakato',
+                role: 'Education & Volunteer Coordinator',
+                photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop',
+                contact: 'volunteers@surefoundation.org'
+            }
+        ];
+
+        // App Initialization
+        window.onload = function() {
+            loadStoredPosts();
+            loadStoredTeam();
+            loadStoredTextEdits();
+        };
+
+        // CMS Toggle Functionality
+        function toggleAdminMode() {
+            adminMode = !adminMode;
+            const noticeBar = document.getElementById('adminNoticeBar');
+            const adminText = document.getElementById('adminToggleText');
+            
+            if (adminMode) {
+                noticeBar.classList.remove('hidden');
+                adminText.innerText = 'Exit Edit Mode';
+                enableEditableElements(true);
+            } else {
+                noticeBar.classList.add('hidden');
+                adminText.innerText = 'Admin Edit Mode';
+                enableEditableElements(false);
+                saveAdminEditsManually();
+            }
+        }
+
+        function enableEditableElements(enable) {
+            const editables = document.querySelectorAll('[contenteditable]');
+            editables.forEach(el => {
+                el.contentEditable = enable;
+                if (enable) {
+                    el.classList.add('editable-active');
+                } else {
+                    el.classList.remove('editable-active');
+                }
+            });
+        }
+
+        function saveAdminEditsManually() {
+            const editableElements = document.querySelectorAll('[contenteditable]');
+            const savedEdits = {};
+            editableElements.forEach(el => {
+                if (el.id) {
+                    savedEdits[el.id] = el.innerHTML;
+                }
+            });
+            localStorage.setItem('sure_foundation_text_edits', JSON.stringify(savedEdits));
+            
+            // Notification toast
+            showToast('All website content edits have been saved to local memory!');
+        }
+
+        function loadStoredTextEdits() {
+            const stored = localStorage.getItem('sure_foundation_text_edits');
+            if (stored) {
+                const edits = JSON.parse(stored);
+                Object.keys(edits).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.innerHTML = edits[id];
+                    }
+                });
+            }
+        }
+
+        // POSTS CMS SYSTEM
+        function loadStoredPosts() {
+            const stored = localStorage.getItem('sure_foundation_posts');
+            const posts = stored ? JSON.parse(stored) : defaultPosts;
+            renderPosts(posts);
+        }
+
+        function renderPosts(posts) {
+            const container = document.getElementById('postsGrid');
+            container.innerHTML = '';
+
+            posts.forEach(post => {
+                const isVideo = post.category === 'video';
+                const card = document.createElement('div');
+                card.className = 'bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col';
+                card.innerHTML = `
+                    <div class="relative h-48 bg-slate-800 overflow-hidden">
+                        ${isVideo && post.image.includes('embed') ? 
+                            `<iframe class="w-full h-full" src="${post.image}" frameborder="0" allowfullscreen></iframe>` : 
+                            `<img src="${post.image}" class="w-full h-full object-cover" alt="${post.title}">`
+                        }
+                        <span class="absolute top-3 left-3 bg-brand-800/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+                            ${post.category}
+                        </span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[11px] text-slate-400 font-medium">${post.date}</span>
+                            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2 leading-snug">${post.title}</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">${post.description}</p>
+                        </div>
+                        ${adminMode ? `
+                            <button onclick="deletePost(${post.id})" class="mt-4 text-red-600 hover:text-red-800 text-xs font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-trash"></i> Delete Post
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterPosts(cat) {
+            // Update active tab button style
+            const tabs = document.querySelectorAll('.feed-tab');
+            tabs.forEach(t => {
+                t.classList.remove('bg-brand-800', 'text-white');
+                t.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            event.target.classList.remove('bg-slate-100', 'text-slate-700');
+            event.target.classList.add('bg-brand-800', 'text-white');
+
+            const stored = localStorage.getItem('sure_foundation_posts');
+            const posts = stored ? JSON.parse(stored) : defaultPosts;
+            if (cat === 'all') {
+                renderPosts(posts);
+            } else {
+                renderPosts(posts.filter(p => p.category === cat));
+            }
+        }
+
+        function openAddPostModal() {
+            document.getElementById('addPostModal').classList.remove('hidden');
+        }
+        function closeAddPostModal() {
+            document.getElementById('addPostModal').classList.add('hidden');
+        }
+
+        function saveNewPost(e) {
+            e.preventDefault();
+            const title = document.getElementById('postTitle').value;
+            const category = document.getElementById('postCategory').value;
+            const mediaUrl = document.getElementById('postMediaUrl').value;
+            const desc = document.getElementById('postDesc').value;
+
+            const stored = localStorage.getItem('sure_foundation_posts');
+            const posts = stored ? JSON.parse(stored) : defaultPosts;
+
+            const newPost = {
+                id: Date.now(),
+                title,
+                category,
+                date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                image: mediaUrl,
+                description: desc
+            };
+
+            posts.unshift(newPost);
+            localStorage.setItem('sure_foundation_posts', JSON.stringify(posts));
+            renderPosts(posts);
+            closeAddPostModal();
+            showToast('New update post published successfully!');
+        }
+
+        function deletePost(id) {
+            const stored = localStorage.getItem('sure_foundation_posts');
+            let posts = stored ? JSON.parse(stored) : defaultPosts;
+            posts = posts.filter(p => p.id !== id);
+            localStorage.setItem('sure_foundation_posts', JSON.stringify(posts));
+            renderPosts(posts);
+            showToast('Post removed.');
+        }
+
+        // TEAM CMS SYSTEM
+        function loadStoredTeam() {
+            const stored = localStorage.getItem('sure_foundation_team');
+            const team = stored ? JSON.parse(stored) : defaultTeam;
+            renderTeam(team);
+        }
+
+        function renderTeam(team) {
+            const container = document.getElementById('teamGrid');
+            container.innerHTML = '';
+
+            team.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-3xl border border-slate-200 p-6 text-center shadow-sm hover:shadow-md transition flex flex-col items-center';
+                card.innerHTML = `
+                    <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-brand-700 shadow">
+                        <img src="${member.photo}" class="w-full h-full object-cover" alt="${member.name}">
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-base">${member.name}</h4>
+                    <p class="text-xs text-brand-700 font-semibold mb-3">${member.role}</p>
+                    <span class="text-[11px] text-slate-500 bg-slate-100 px-3 py-1 rounded-full"><i class="fa-solid fa-envelope mr-1"></i>${member.contact}</span>
+                    ${adminMode ? `
+                        <button onclick="deleteTeamMember(${member.id})" class="mt-4 text-red-600 hover:text-red-800 text-xs font-bold">
+                            <i class="fa-solid fa-user-minus"></i> Remove
+                        </button>
+                    ` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openAddTeamModal() {
+            document.getElementById('addTeamModal').classList.remove('hidden');
+        }
+        function closeAddTeamModal() {
+            document.getElementById('addTeamModal').classList.add('hidden');
+        }
+
+        function saveNewTeamMember(e) {
+            e.preventDefault();
+            const name = document.getElementById('teamName').value;
+            const role = document.getElementById('teamRole').value;
+            const photo = document.getElementById('teamPhoto').value;
+            const contact = document.getElementById('teamContact').value;
+
+            const stored = localStorage.getItem('sure_foundation_team');
+            const team = stored ? JSON.parse(stored) : defaultTeam;
+
+            team.push({ id: Date.now(), name, role, photo, contact });
+            localStorage.setItem('sure_foundation_team', JSON.stringify(team));
+            renderTeam(team);
+            closeAddTeamModal();
+            showToast('New staff member added to team directory!');
+        }
+
+        function deleteTeamMember(id) {
+            const stored = localStorage.getItem('sure_foundation_team');
+            let team = stored ? JSON.parse(stored) : defaultTeam;
+            team = team.filter(m => m.id !== id);
+            localStorage.setItem('sure_foundation_team', JSON.stringify(team));
+            renderTeam(team);
+            showToast('Team member removed.');
+        }
+
+        // CURRENCY & DONATION SYSTEM
+        function updateCurrency(curr) {
+            activeCurrency = curr;
+            document.getElementById('selectedCurrencyLabel').innerText = curr;
+            const symbols = { USD: '$', UGX: 'USh ', GBP: '£', EUR: '€' };
+            document.getElementById('currSymbol').innerText = symbols[curr] || '$';
+        }
+
+        function setDonationAmount(amt) {
+            document.getElementById('customAmountInput').value = amt;
+        }
+
+        function switchPayTab(tabKey) {
+            const tabs = document.querySelectorAll('.pay-tab');
+            const contents = document.querySelectorAll('.pay-content');
+
+            tabs.forEach(t => {
+                t.classList.remove('active', 'border-brand-700', 'bg-brand-50', 'text-brand-900');
+                t.classList.add('border-slate-200', 'text-slate-700');
+            });
+            contents.forEach(c => c.classList.add('hidden'));
+
+            const targetTab = document.getElementById(`tab-${tabKey}`);
+            const targetContent = document.getElementById(`content-${tabKey}`);
+
+            targetTab.classList.add('active', 'border-brand-700', 'bg-brand-50', 'text-brand-900');
+            targetContent.classList.remove('hidden');
+        }
+
+        function openDonateModal() {
+            document.getElementById('donateModal').classList.remove('hidden');
+        }
+        function closeDonateModal() {
+            document.getElementById('donateModal').classList.add('hidden');
+        }
+
+        function processDonation(method) {
+            const amount = document.getElementById('customAmountInput').value;
+            closeDonateModal();
+            showToast(`Thank you! Your donation request of ${activeCurrency} ${amount} via ${method} is being processed. May God bless you!`);
+        }
+
+        // AI LIVE CHAT BOT (SUREBOT)
+        function toggleChatWindow() {
+            const chat = document.getElementById('chatWindow');
+            chat.classList.toggle('hidden');
+        }
+
+        function handleUserChat(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            appendChatMessage('user', msg);
+            input.value = '';
+
+            setTimeout(() => {
+                generateBotResponse(msg);
+            }, 600);
+        }
+
+        function sendQuickChat(query) {
+            appendChatMessage('user', query);
+            setTimeout(() => {
+                generateBotResponse(query);
+            }, 500);
+        }
+
+        function appendChatMessage(sender, text) {
+            const chatBox = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+
+            if (sender === 'user') {
+                div.className = 'bg-brand-800 text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] ml-auto shadow-sm';
+            } else {
+                div.className = 'bg-white border border-slate-200 text-slate-800 p-3 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm';
+            }
+
+            div.innerHTML = text;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function generateBotResponse(q) {
+            const lower = q.toLowerCase();
+            let reply = "";
+
+            if (lower.includes('donate') || lower.includes('give') || lower.includes('money')) {
+                reply = "You can donate easily using VISA / MasterCard, PayPal, or Uganda Mobile Money (MTN & Airtel). Click the <strong>Donate Now</strong> button in the top menu!";
+            } else if (lower.includes('momo') || lower.includes('mtn') || lower.includes('airtel') || lower.includes('mobile money')) {
+                reply = "MTN MoMo Merchant Code is <strong>123456</strong> (+256 770 000000). Airtel Pay Code is <strong>654321</strong> (+256 700 000000) under 'Sure Foundation Outreach Ministries'.";
+            } else if (lower.includes('location') || lower.includes('where') || lower.includes('address')) {
+                reply = "We are located along Kampala - Jinja Highway, Uganda East Africa. You are warmly welcome to visit us anytime!";
+            } else if (lower.includes('visit') || lower.includes('volunteer') || lower.includes('travel')) {
+                reply = "We warmly welcome visitors from USA, UK, Europe, and all over the world! We provide safe guesthouse accommodation and safari guidance. Check out our 'Visit Uganda' section!";
+            } else if (lower.includes('education') || lower.includes('school') || lower.includes('child')) {
+                reply = "We support over 250 orphans with school fees, uniforms, medical care, meals, and safe shelter. Child sponsorship is available!";
+            } else {
+                reply = "Thank you for reaching out to Sure Foundation Outreach Ministries Int. You can also contact us directly at <strong>+256 770 000000</strong> or email <strong>info@surefoundationoutreach.org</strong>.";
+            }
+
+            appendChatMessage('bot', reply);
+        }
+
+        // VISITOR FORM & CONTACT FORM HANDLERS
+        function openVisitorModal() {
+            document.getElementById('visitorModal').classList.remove('hidden');
+        }
+        function closeVisitorModal() {
+            document.getElementById('visitorModal').classList.add('hidden');
+        }
+
+        function handleVisitorSubmit(e) {
+            e.preventDefault();
+            closeVisitorModal();
+            showToast('Thank you for registering interest to visit Uganda! Our volunteer team will reach out via email.');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            e.target.reset();
+            showToast('Your message has been sent to Sure Foundation Outreach Ministries. We will reply shortly!');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // CUSTOM TOAST NOTIFICATION
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-5 right-5 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold flex items-center gap-2 border border-brand-500 animate-bounce';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-base"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
